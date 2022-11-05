@@ -1,0 +1,12 @@
+server:
+  addr: 0.0.0.0:8000
+logger:
+  level: debug
+original:
+  cacheDir: /tmp
+  cachePrefix: prevorig_
+  cacheSize: off
+preview:
+  cacheDir: /tmp
+  cachePrefix: prevfill_
+  cacheSize: 1G
