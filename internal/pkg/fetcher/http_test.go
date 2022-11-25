@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/rez1dent3/otus-final/pkg/fetcher"
-	"github.com/rez1dent3/otus-final/pkg/hsum"
+	"github.com/rez1dent3/otus-final/internal/pkg/fetcher"
+	"github.com/rez1dent3/otus-final/internal/pkg/hsum"
 	"github.com/stretchr/testify/require"
 )
 
@@ -25,7 +25,7 @@ func checkAuth(next http.Handler) http.Handler {
 }
 
 func fileServer() *httptest.Server {
-	return httptest.NewServer(checkAuth(http.FileServer(http.Dir("../../resources/images"))))
+	return httptest.NewServer(checkAuth(http.FileServer(http.Dir("../../../resources/images"))))
 }
 
 func TestHttpImpl_Get(t *testing.T) {

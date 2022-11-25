@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/rez1dent3/otus-final/pkg/fs"
-	"github.com/rez1dent3/otus-final/pkg/hsum"
-	"github.com/rez1dent3/otus-final/pkg/logger"
-	"github.com/rez1dent3/otus-final/pkg/lru"
+	"github.com/rez1dent3/otus-final/internal/pkg/fs"
+	"github.com/rez1dent3/otus-final/internal/pkg/hsum"
+	"github.com/rez1dent3/otus-final/internal/pkg/logger"
+	"github.com/rez1dent3/otus-final/internal/pkg/lru"
 )
 
 var ErrServerError = errors.New("server error")

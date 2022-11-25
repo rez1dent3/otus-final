@@ -56,15 +56,8 @@ func main() {
 		syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
 	defer cancel()
 
-	defer func() {
-		app.Logger().Info("http server stopping")
-		if err := httpServ.Stop(ctx); err != nil {
-			app.Logger().Error(err.Error())
-		}
-	}()
-
 	app.Logger().Info("http server starting")
-	if err := httpServ.Start(ctx); err != nil {
+	if err := httpServ.ListenAndServe(ctx); err != nil {
 		app.Logger().Error(err.Error())
 	}
 }

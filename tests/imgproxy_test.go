@@ -116,6 +116,39 @@ func TestCheckFromCachePreview(t *testing.T) {
 	require.NoError(t, resp.Body.Close())
 }
 
+func TestCheckLruLogic(t *testing.T) {
+	testCases := []struct {
+		url    string
+		status int
+	}{
+		// full storage ~50K / 65K
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=1", http.StatusOK},
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=2", http.StatusOK},
+
+		// remove ?img=1
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=3", http.StatusOK},
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=2", http.StatusOK},
+
+		// remove ?img=3
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=4", http.StatusOK},
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=3", http.StatusBadGateway},
+
+		// final check lru
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=1", http.StatusBadGateway},
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=2", http.StatusOK},
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=3", http.StatusBadGateway},
+		{"nginx/lru_limited/_gopher_original_1024x504.jpg?img=4", http.StatusOK},
+	}
+
+	for _, testCase := range testCases {
+		resp, _ := doRequest(testCase.url, 500, 500, nil)
+
+		require.NotNil(t, resp)
+		require.Equal(t, testCase.status, resp.StatusCode)
+		require.NoError(t, resp.Body.Close())
+	}
+}
+
 func TestCheckSendingHeaders(t *testing.T) {
 	// first request without auth
 	resp, _ := doRequest("nginx/auth/_gopher_original_1024x504.jpg", 640, 480, nil)

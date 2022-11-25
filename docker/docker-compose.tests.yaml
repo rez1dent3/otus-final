@@ -1,6 +1,10 @@
 version: '3.8'
 
 services:
+  imgproxy:
+    volumes:
+      - ./../configs/config.intgr.yaml:/etc/imgproxy/config.yaml:ro
+
   nginx:
     ports:
       - 80:80

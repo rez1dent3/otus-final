@@ -3,8 +3,8 @@ package lru_test
 import (
 	"testing"
 
-	"github.com/rez1dent3/otus-final/pkg/bus"
-	"github.com/rez1dent3/otus-final/pkg/lru"
+	"github.com/rez1dent3/otus-final/internal/pkg/bus"
+	"github.com/rez1dent3/otus-final/internal/pkg/lru"
 	"github.com/stretchr/testify/require"
 )
 

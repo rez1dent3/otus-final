@@ -11,8 +11,7 @@ import (
 )
 
 type HTTPServerInterface interface {
-	Start(context.Context) error
-	Stop(context.Context) error
+	ListenAndServe(context.Context) error
 	HTTPHandler() http.Handler
 }
 
@@ -27,7 +26,7 @@ func New(appImpl imgprev.AppInterface) HTTPServerInterface {
 	return &impl{app: appImpl, previewer: handlers.NewPreviewer(appImpl)}
 }
 
-func (i *impl) Start(ctx context.Context) error {
+func (i *impl) ListenAndServe(ctx context.Context) error {
 	httpHandler := i.HTTPHandler()
 
 	i.server = &http.Server{

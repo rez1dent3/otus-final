@@ -4,7 +4,7 @@ import (
 	"container/list"
 	"sync"
 
-	"github.com/rez1dent3/otus-final/pkg/bus"
+	"github.com/rez1dent3/otus-final/internal/pkg/bus"
 )
 
 const EventEvict = "event_evict"

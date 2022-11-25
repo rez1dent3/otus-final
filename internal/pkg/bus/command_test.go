@@ -3,7 +3,7 @@ package bus_test
 import (
 	"testing"
 
-	"github.com/rez1dent3/otus-final/pkg/bus"
+	"github.com/rez1dent3/otus-final/internal/pkg/bus"
 	"github.com/stretchr/testify/require"
 )
 

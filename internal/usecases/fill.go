@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/rez1dent3/otus-final/pkg/fetcher"
-	"github.com/rez1dent3/otus-final/pkg/fs"
-	"github.com/rez1dent3/otus-final/pkg/hsum"
-	"github.com/rez1dent3/otus-final/pkg/lru"
-	"github.com/rez1dent3/otus-final/pkg/transformer"
+	"github.com/rez1dent3/otus-final/internal/pkg/fetcher"
+	"github.com/rez1dent3/otus-final/internal/pkg/fs"
+	"github.com/rez1dent3/otus-final/internal/pkg/hsum"
+	"github.com/rez1dent3/otus-final/internal/pkg/lru"
+	"github.com/rez1dent3/otus-final/internal/pkg/transformer"
 )
 
 type PreviewUseCaseInterface interface {
@@ -61,7 +61,7 @@ func (i *impl) FillCenter(
 	header http.Header,
 ) ([]byte, error) {
 	cacheKey := i.cacheKey(originalURL, width, height)
-	if i.cache.Has(cacheKey) {
+	if _, ok := i.cache.Get(cacheKey); ok {
 		if body, err := i.fm.Content(cacheKey); err == nil {
 			return body, nil
 		}

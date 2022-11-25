@@ -7,8 +7,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/rez1dent3/otus-final/pkg/hsum"
-	"github.com/rez1dent3/otus-final/pkg/transformer"
+	"github.com/rez1dent3/otus-final/internal/pkg/hsum"
+	"github.com/rez1dent3/otus-final/internal/pkg/transformer"
 	"github.com/stretchr/testify/require"
 )
 
@@ -20,8 +20,8 @@ func TestJpegImage_IsSupported(t *testing.T) {
 		path      string
 		supported bool
 	}{
-		{"check jpeg", "../../resources/images/_gopher_original_1024x504.jpg", true},
-		{"check png", "../../resources/images/_gopher_original_1024x504.png", false},
+		{"check jpeg", "../../../resources/images/_gopher_original_1024x504.jpg", true},
+		{"check png", "../../../resources/images/_gopher_original_1024x504.png", false},
 		{"check go", "./fill_jpeg.go", false},
 		{"check /dev/null", "/dev/null", false},
 		{"check /bin/sh", "/bin/sh", false},
@@ -50,7 +50,7 @@ func TestJpegImage_FillCenter(t *testing.T) {
 	transform := transformer.NewJpeg()
 	hsm := hsum.New()
 
-	file, err := os.Open("../../resources/images/_gopher_original_1024x504.jpg")
+	file, err := os.Open("../../../resources/images/_gopher_original_1024x504.jpg")
 	require.NoError(t, err)
 	require.NotNil(t, file)
 

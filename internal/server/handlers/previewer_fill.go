@@ -7,11 +7,11 @@ import (
 	"strconv"
 
 	"github.com/rez1dent3/otus-final/internal/imgprev"
+	"github.com/rez1dent3/otus-final/internal/pkg/bytesize"
+	"github.com/rez1dent3/otus-final/internal/pkg/fs"
+	"github.com/rez1dent3/otus-final/internal/pkg/hsum"
+	"github.com/rez1dent3/otus-final/internal/pkg/lru"
 	"github.com/rez1dent3/otus-final/internal/usecases"
-	"github.com/rez1dent3/otus-final/pkg/bytesize"
-	"github.com/rez1dent3/otus-final/pkg/fs"
-	"github.com/rez1dent3/otus-final/pkg/hsum"
-	"github.com/rez1dent3/otus-final/pkg/lru"
 )
 
 var ErrParseURL = errors.New("can't parse URL")

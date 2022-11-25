@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/rez1dent3/otus-final/pkg/fs"
+	"github.com/rez1dent3/otus-final/internal/pkg/fs"
 	"github.com/stretchr/testify/require"
 )
 

@@ -3,7 +3,7 @@ package hsum_test
 import (
 	"testing"
 
-	"github.com/rez1dent3/otus-final/pkg/hsum"
+	"github.com/rez1dent3/otus-final/internal/pkg/hsum"
 	"github.com/stretchr/testify/require"
 )
 

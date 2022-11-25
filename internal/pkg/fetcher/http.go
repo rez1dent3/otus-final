@@ -2,13 +2,13 @@ package fetcher
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 var ErrNotSupportedContentType = errors.New("fetcher does not support content-type")
@@ -39,12 +39,12 @@ type httpImpl struct {
 func (f *httpImpl) Get(ctx context.Context, url string, header http.Header) ([]byte, error) {
 	proxyRequest, err := f.prepare(ctx, url, header)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to prepare request")
+		return nil, fmt.Errorf("failed to prepare request: %w", err)
 	}
 
 	responseBody, err := f.do(proxyRequest)
 	if err != nil {
-		return nil, errors.Wrap(err, "error making request")
+		return nil, fmt.Errorf("error making request: %w", err)
 	}
 
 	return responseBody, nil
@@ -53,7 +53,7 @@ func (f *httpImpl) Get(ctx context.Context, url string, header http.Header) ([]b
 func (f *httpImpl) prepare(ctx context.Context, rawURL string, header http.Header) (*http.Request, error) {
 	request, err := http.NewRequestWithContext(ctx, http.MethodGet, rawURL, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create proxy request")
+		return nil, fmt.Errorf("failed to create proxy request: %w", err)
 	}
 
 	if !strings.HasPrefix(rawURL, "http://") && !strings.HasPrefix(rawURL, "https://") {
@@ -62,7 +62,7 @@ func (f *httpImpl) prepare(ctx context.Context, rawURL string, header http.Heade
 
 	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to parse url")
+		return nil, fmt.Errorf("failed to parse url: %w", err)
 	}
 
 	request.URL = parsedURL
@@ -79,7 +79,7 @@ func (f *httpImpl) do(request *http.Request) ([]byte, error) {
 
 	resp, err := client.Do(request)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to complete the request")
+		return nil, fmt.Errorf("failed to complete the request: %w", err)
 	}
 
 	defer func() {
@@ -96,12 +96,14 @@ func (f *httpImpl) do(request *http.Request) ([]byte, error) {
 	}
 
 	if !supported {
-		return nil, errors.Wrap(ErrNotSupportedContentType, responseContentType)
+		return nil, fmt.Errorf(
+			"not supported content-type %s: %w",
+			responseContentType, ErrNotSupportedContentType)
 	}
 
 	buff, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to read request body")
+		return nil, fmt.Errorf("failed to read request body: %w", err)
 	}
 
 	return buff, nil

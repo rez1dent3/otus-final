@@ -4,15 +4,15 @@ import (
 	"os"
 	"time"
 
+	"github.com/rez1dent3/otus-final/internal/pkg/bus"
+	"github.com/rez1dent3/otus-final/internal/pkg/bytesize"
+	"github.com/rez1dent3/otus-final/internal/pkg/fetcher"
+	"github.com/rez1dent3/otus-final/internal/pkg/fs"
+	"github.com/rez1dent3/otus-final/internal/pkg/hsum"
+	"github.com/rez1dent3/otus-final/internal/pkg/logger"
+	"github.com/rez1dent3/otus-final/internal/pkg/lru"
+	"github.com/rez1dent3/otus-final/internal/pkg/transformer"
 	"github.com/rez1dent3/otus-final/internal/transport"
-	"github.com/rez1dent3/otus-final/pkg/bus"
-	"github.com/rez1dent3/otus-final/pkg/bytesize"
-	"github.com/rez1dent3/otus-final/pkg/fetcher"
-	"github.com/rez1dent3/otus-final/pkg/fs"
-	"github.com/rez1dent3/otus-final/pkg/hsum"
-	"github.com/rez1dent3/otus-final/pkg/logger"
-	"github.com/rez1dent3/otus-final/pkg/lru"
-	"github.com/rez1dent3/otus-final/pkg/transformer"
 )
 
 var supportedContentTypes = []string{

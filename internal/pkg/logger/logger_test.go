@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/rez1dent3/otus-final/pkg/logger"
+	"github.com/rez1dent3/otus-final/internal/pkg/logger"
 	"github.com/stretchr/testify/require"
 )
 

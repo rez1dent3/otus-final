@@ -3,7 +3,7 @@ package bytesize_test
 import (
 	"testing"
 
-	"github.com/rez1dent3/otus-final/pkg/bytesize"
+	"github.com/rez1dent3/otus-final/internal/pkg/bytesize"
 	"github.com/stretchr/testify/require"
 )
 

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/rez1dent3/otus-final/pkg/transformer"
+	"github.com/rez1dent3/otus-final/internal/pkg/transformer"
 	"github.com/stretchr/testify/require"
 )
 
@@ -29,8 +29,8 @@ func TestStack_IsSupported(t *testing.T) {
 		path      string
 		supported bool
 	}{
-		{"check jpeg", "../../resources/images/_gopher_original_1024x504.jpg", true},
-		{"check png", "../../resources/images/_gopher_original_1024x504.png", true},
+		{"check jpeg", "../../../resources/images/_gopher_original_1024x504.jpg", true},
+		{"check png", "../../../resources/images/_gopher_original_1024x504.png", true},
 		{"check go", "./fill_jpeg.go", true},
 		{"check /dev/null", "/dev/null", true},
 		{"check /bin/sh", "/bin/sh", false},
