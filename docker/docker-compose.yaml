@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  imgproxy:
+    ports:
+      - 8000:8000
+    image: imgproxy:develop
+    deploy:
+      mode: global
+      replicas: 1
+    healthcheck:
+      test: "curl --connect-timeout 1 --silent --show-error --fail http://127.0.0.1:8000/health"
+      timeout: 5s
+      interval: 5s
+      start_period: 1s
+      retries: 10
+    networks:
+      - app
+
+networks:
+  app:

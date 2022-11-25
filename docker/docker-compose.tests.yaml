@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  imgproxy:
+    volumes:
+      - ./../configs/config.intgr.yaml:/etc/imgproxy/config.yaml:ro
+
+  nginx:
+    ports:
+      - 80:80
+    image: nginx:1.23.1-alpine
+    depends_on:
+      imgproxy:
+        condition: service_healthy
+    deploy:
+      mode: global
+      replicas: 1
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./.htpasswd:/etc/nginx/.htpasswd:ro
+      - ./../resources/images:/images:ro
+    networks:
+      - app
+
+  tests:
+    image: golang:1.19-alpine
+    volumes:
+      - ./../:/app/
+    working_dir: /app
+    command: sh -c 'go test -v ./tests/...'
+    environment:
+      CGO_ENABLED: 0
+    depends_on:
+      - nginx
+    networks:
+      - app
+
+networks:
+  app:
